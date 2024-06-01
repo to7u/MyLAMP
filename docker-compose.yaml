@@ -1,0 +1,40 @@
+version: "3.9"
+services:
+  web:
+    build:
+      context: ./web
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./web/html:/var/www/html
+        #  - ./web/apache_config/apache2:/etc/apache2 #Apache設定ファイル
+    ports:
+      - 80:80 #任意の値を設定<Host Port>:<Container Port>
+    depends_on:
+      - mysql
+
+  mysql:
+    build:
+      context: ./mysql
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./mysql/mysql:/var/lib/mysql
+      - ./mysql/config/my.cnf:/etc/mysql/conf.d/my.cnf
+    environment:
+      - MYSQL_ROOT_PASSWORD=root #任意の値を設定
+      - MYSQL_DATABASE=test_db #任意の値を設定
+      - MYSQL_USER=test_user #任意の値を設定
+      - MYSQL_PASSWORD=test_password #任意の値を設定
+    ports:
+      - 3306:3306 #任意の値を設定
+
+  phpmyadmin:
+    build:
+      context: ./phpmyadmin
+      dockerfile: ./Dockerfile
+    environment:
+      PMA_HOST: "mysql"
+      PMA_USER: "test_user" #任意の値を設定
+      PMA_PASSWORD: "test_password" #任意の値を設定
+    ports:
+      - 8080:80 #任意の値を設定
+
