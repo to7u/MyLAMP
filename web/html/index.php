@@ -12,6 +12,22 @@ if (!isset($_SESSION['username'])) {
 
 include 'db_connection.php';
 
+// テーブルが存在しない場合に作成するクエリ
+$createTableQuery = "CREATE TABLE IF NOT EXISTS todos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    task TEXT NOT NULL,
+    completed BOOLEAN NOT NULL DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)";
+
+// テーブルの作成を試行
+if ($conn->query($createTableQuery) === TRUE) {
+    echo "Table created successfully!";
+} else {
+    echo "Error creating table: " . $conn->error;
+}
+
 // 新規TODO追加
 if (isset($_POST['add_todo'])) {
     include 'add_todo.php';
