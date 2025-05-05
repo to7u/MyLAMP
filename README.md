@@ -24,4 +24,5 @@ Apacheの設定ファイル各種を/web/apache_config配下に配置してあ�
 2. 下記コマンドでコンテナのデフォルト設定をローカルにコピー、コンテナは停止する
     以下の例は、コピー先のデレクトリは/web/apache_configへ指定している
     コンテナIDは都度、意図したものを取得すること
-    docker cp {コンテナID}:/etc/apache2 ./
+    docker ps
+    docker cp {コンテナID}:/etc/apache2 ./web/config

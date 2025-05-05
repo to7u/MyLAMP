@@ -6,7 +6,8 @@ services:
       dockerfile: ./Dockerfile
     volumes:
       - ./web/html:/var/www/html
-        #  - ./web/apache_config/apache2:/etc/apache2 #Apache設定ファイル
+      - ./web/config/apache2:/etc/apache2 #Apache設定ファイル
+      - ./web/log/apache2:/var/log/apache2  # ログをローカルにマウント
     ports:
       - 80:80 #任意の値を設定<Host Port>:<Container Port>
     depends_on:
