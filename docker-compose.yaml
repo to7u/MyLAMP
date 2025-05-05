@@ -8,6 +8,7 @@ services:
       - ./web/html:/var/www/html
       - ./web/config/apache2:/etc/apache2 #Apache設定ファイル
       - ./web/log/apache2:/var/log/apache2  # ログをローカルにマウント
+      - ./web/dev:/var/www/dev
     ports:
       - 80:80 #任意の値を設定<Host Port>:<Container Port>
     depends_on:
